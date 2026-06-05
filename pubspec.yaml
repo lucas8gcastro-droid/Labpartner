@@ -1,35 +1,52 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+name: labpartner
+description: "LabPartner — plataforma B2B de cotações de química fina para representantes universitários."
+publish_to: "none"
+version: 0.1.0+1
 
-import '../../../shared/models/enums.dart';
+environment:
+  sdk: ">=3.5.0 <4.0.0"
+  flutter: ">=3.24.0"
 
-part 'quote.freezed.dart';
-part 'quote.g.dart';
+dependencies:
+  flutter:
+    sdk: flutter
 
-/// Cotação (espelha a tabela public.quotes).
-/// Os itens vivem em `quote_items` e são carregados separadamente.
-@freezed
-class Quote with _$Quote {
-  const Quote._();
+  # Backend / Auth
+  supabase_flutter: ^2.8.0
 
-  const factory Quote({
-    required String id,
-    @JsonKey(name: 'quote_number') String? quoteNumber,
-    @JsonKey(name: 'representative_id') required String representativeId,
-    @JsonKey(name: 'professor_name') required String professorName,
-    String? laboratory,
-    String? department,
-    String? university,
-    String? observations,
-    @Default(UrgencyLevel.normal) UrgencyLevel urgency,
-    @Default(QuoteStatus.pending) QuoteStatus status,
-    @JsonKey(name: 'total_amount') @Default(0) double totalAmount,
-    @JsonKey(name: 'created_at') DateTime? createdAt,
-    @JsonKey(name: 'updated_at') DateTime? updatedAt,
-    @JsonKey(name: 'approved_at') DateTime? approvedAt,
-    @JsonKey(name: 'delivered_at') DateTime? deliveredAt,
-  }) = _Quote;
+  # Estado
+  flutter_riverpod: ^2.6.1
+  riverpod_annotation: ^2.6.1
 
-  factory Quote.fromJson(Map<String, dynamic> json) => _$QuoteFromJson(json);
+  # Navegação
+  go_router: ^14.6.0
 
-  String get displayNumber => quoteNumber ?? '—';
-}
+  # Modelos imutáveis + serialização
+  freezed_annotation: ^2.4.4
+  json_annotation: ^4.9.0
+
+  # UI / formatação
+  google_fonts: ^6.2.1
+  intl: ^0.20.2
+  cupertino_icons: ^1.0.8
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  # Lint
+  flutter_lints: ^5.0.0
+  custom_lint: ^0.7.0
+  riverpod_lint: ^2.6.3
+
+  # Geração de código (Freezed, json_serializable, Riverpod)
+  build_runner: ^2.4.13
+  freezed: ^2.5.7
+  json_serializable: ^6.9.0
+  riverpod_generator: ^2.6.3
+
+flutter:
+  uses-material-design: true
+  # Quando adicionar assets (logo, ícones), declare aqui:
+  # assets:
+  #   - assets/images/
